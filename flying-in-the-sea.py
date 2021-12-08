@@ -3,9 +3,15 @@ import pygame
 import random
 
 pygame.init()
+pygame.display.set_caption('flying-in-the-sea game')
+icon = pygame.image.load('icon.jpg') #icon game
+pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 480*2
 screen = pygame.display.set_mode((screen_width, screen_height))
+mixer.init()
+pygame.mixer.music.load(r'music.mp3') #music
+pygame.mixer.music.play(-1)
 
 def main():
     """flying-in-the-sea"""
