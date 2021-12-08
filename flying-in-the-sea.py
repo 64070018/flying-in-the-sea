@@ -1,6 +1,7 @@
 """PSIT PROJECT 2021"""
 import pygame
 import random
+from pygame import mixer
 
 pygame.init()
 pygame.display.set_caption('flying-in-the-sea game')
@@ -9,12 +10,11 @@ pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 480*2
 screen = pygame.display.set_mode((screen_width, screen_height))
-mixer.init()
-pygame.mixer.music.load(r'music.mp3') #music
-pygame.mixer.music.play(-1)
 
 def main():
     """flying-in-the-sea"""
+    pygame.mixer.music.load(r'music.wav') # Music
+    pygame.mixer.music.play()
     global points
     screen_height = 360*2
     screen_width = 480*2
@@ -114,14 +114,20 @@ def main():
 
         # ถ้าชนแล้วจบเกม
         if playerr.colliderect(barrior_shark):
+            pygame.mixer.music.load(r'explosion.wav') #effect
+            pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_boat):
+            pygame.mixer.music.load(r'explosion.wav') #effect
+            pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_coral):
+            pygame.mixer.music.load(r'explosion.wav') #effect
+            pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
