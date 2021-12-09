@@ -13,6 +13,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 if os.path.exists('score.txt'):
     with open('score.txt', 'r') as file:
         highpoint = int(file.read())
+else:
+        highpoint = 0
 
 def main():
     """flying-in-the-sea"""
@@ -49,9 +51,6 @@ def main():
 
     run = True
     while run:
-
-
-
         """การทำงาน"""
         distance += 1
         if distance % 900 == 0:
@@ -68,8 +67,8 @@ def main():
         scoreRect2.center = (360*2, 20)
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # ออกจากเกม
-                run = False
+           if event.type == pygame.QUIT:  # ออกจากเกม
+               run = False
 
         action = pygame.key.get_pressed()  # การเคลื่อนที่
         if action[pygame.K_UP] or action[pygame.K_w]:
@@ -124,20 +123,20 @@ def main():
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count, highpoint)
-            return highpoint
+            menu(death_count)
+            return
         if playerr.colliderect(barrior_boat):
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count, highpoint)
-            return highpoint
+            menu(death_count)
+            return
         if playerr.colliderect(barrior_coral):
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count, highpoint)
-            return highpoint
+            menu(death_count)
+            return
 
         # การเรียนใช้ตัวแปรให้แสดงผล
         screen.blit(bg, (bg_x-480*2, 0))
@@ -155,9 +154,9 @@ def main():
 
     return highpoint
 
-def menu(death_count, highpoint):
+def menu(death_count):
     """menu"""
-    global points
+    global points, highpoint
     run = True
     while run:
         screen.fill((122, 197, 205))
@@ -201,4 +200,4 @@ def menu(death_count, highpoint):
             if event.type == pygame.KEYDOWN:
                 main()
                 return
-menu(death_count=0, highpoint=highpoint)
+menu(death_count=0)
