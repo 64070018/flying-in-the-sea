@@ -4,7 +4,7 @@ from pygame import mixer
 
 pygame.init()
 pygame.display.set_caption('flying-in-the-sea game')
-icon = pygame.image.load(r'Art\icon.png') #icon game
+icon = pygame.image.load(r'Art\icongame.png') #icon game
 pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 430*2
@@ -64,7 +64,7 @@ def main():
         txt = font.render("SCORE:" + str(points), False, [0, 0, 0])
         high_score = font.render("High score: " + str(highpoint), True, (0, 0, 0))
         scoreRect2 = high_score.get_rect()
-        scoreRect2.center = (360*2, 20)
+        scoreRect2 = (700, 10)
 
         for event in pygame.event.get():
            if event.type == pygame.QUIT:  # ออกจากเกม
@@ -116,7 +116,6 @@ def main():
             player_y = 0
         elif player_x <= 0:
             player_x = 0
-
 
         # ถ้าชนแล้วจบเกม
         if playerr.colliderect(barrior_shark):
