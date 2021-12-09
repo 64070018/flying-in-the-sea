@@ -1,7 +1,5 @@
 """PSIT PROJECT 2021"""
-import pygame
-import random
-import os
+import pygame, random, os
 from pygame import mixer
 
 pygame.init()
