@@ -1,6 +1,7 @@
 """PSIT PROJECT 2021"""
 import pygame
 import random
+import os
 from pygame import mixer
 
 pygame.init()
@@ -10,7 +11,10 @@ pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 430*2
 screen = pygame.display.set_mode((screen_width, screen_height))
-highpoint = 0
+
+if os.path.exists('score.txt'):
+    with open('score.txt', 'r') as file:
+        highpoint = int(file.read())
 
 def main():
     """flying-in-the-sea"""
@@ -47,6 +51,9 @@ def main():
 
     run = True
     while run:
+
+
+
         """การทำงาน"""
         distance += 1
         if distance % 900 == 0:
@@ -148,6 +155,8 @@ def main():
         pygame.display.update()
     pygame.quit()
 
+    return highpoint
+
 def menu(death_count, highpoint):
     """menu"""
     global points
@@ -165,10 +174,14 @@ def menu(death_count, highpoint):
             screen.blit(name, nameRect)
         #เมนู restart
         elif death_count > 0:
-            if points >= highpoint:
+            if points > highpoint:
                 highpoint = points
+                with open('score.txt', 'w') as file:
+                    file.write(str(highpoint))
             else:
-                pass
+                highpoint = highpoint
+                with open('score.txt', 'w') as file:
+                    file.write(str(highpoint))
             text = font.render("Press any Key to Restart", True, (0, 0, 0))
             score = font.render("Your score: " + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
@@ -189,4 +202,5 @@ def menu(death_count, highpoint):
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
+                return
 menu(death_count=0, highpoint=highpoint)
