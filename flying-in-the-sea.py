@@ -8,18 +8,15 @@ pygame.display.set_caption('flying-in-the-sea game')
 icon = pygame.image.load(r'Art\icon.png') #icon game
 pygame.display.set_icon(icon)
 screen_height = 360*2
-screen_width = 480*2
+screen_width = 430*2
 screen = pygame.display.set_mode((screen_width, screen_height))
+highpoint = 0
 
 def main():
     """flying-in-the-sea"""
     pygame.mixer.music.load(r'Art\music.wav') # Music
     pygame.mixer.music.play()
     global points
-    screen_height = 360*2
-    screen_width = 480*2
-    screen = pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption("flying-in-the-sea")
     points = 0
 
     bg = pygame.image.load(r'Art\bg.jpg')  # Background
@@ -38,7 +35,7 @@ def main():
     coral = pygame.transform.scale(coral, (250, 150))
 
     bg_x = 0
-    shark_x, shark_y = 800, 200
+    shark_x, shark_y = 800, 300
     boat_x = 1000
     coral_x = 700
 
@@ -61,6 +58,9 @@ def main():
 
         font = pygame.font.SysFont("Mali", 32, False, False)
         txt = font.render("SCORE:" + str(points), False, [0, 0, 0])
+        high_score = font.render("High score: " + str(highpoint), True, (0, 0, 0))
+        scoreRect2 = high_score.get_rect()
+        scoreRect2.center = (360*2, 20)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # ออกจากเกม
@@ -110,26 +110,29 @@ def main():
             player_y = 310*2
         elif player_y <= 0:
             player_y = 0
+        elif player_x <= 0:
+            player_x = 0
+
 
         # ถ้าชนแล้วจบเกม
         if playerr.colliderect(barrior_shark):
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count)
-            return
+            menu(death_count, highpoint)
+            return highpoint
         if playerr.colliderect(barrior_boat):
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count)
-            return
+            menu(death_count, highpoint)
+            return highpoint
         if playerr.colliderect(barrior_coral):
             pygame.mixer.music.load(r'Art\explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
-            menu(death_count)
-            return
+            menu(death_count, highpoint)
+            return highpoint
 
         # การเรียนใช้ตัวแปรให้แสดงผล
         screen.blit(bg, (bg_x-480*2, 0))
@@ -140,10 +143,12 @@ def main():
         screen.blit(coral, (coral_x, 280*2))
         screen.blit(player, (player_x, player_y))
         screen.blit(txt, (10, 10))
+        screen.blit(high_score, scoreRect2)
+
         pygame.display.update()
     pygame.quit()
 
-def menu(death_count):
+def menu(death_count, highpoint):
     """menu"""
     global points
     run = True
@@ -160,11 +165,21 @@ def menu(death_count):
             screen.blit(name, nameRect)
         #เมนู restart
         elif death_count > 0:
+            if points >= highpoint:
+                highpoint = points
+            else:
+                pass
             text = font.render("Press any Key to Restart", True, (0, 0, 0))
             score = font.render("Your score: " + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
             scoreRect.center = (screen_width // 2, screen_height//2 - 50)
             screen.blit(score, scoreRect)
+
+            high_score = font.render("High score: " + str(highpoint), True, (0, 0, 0))
+            scoreRect2 = high_score.get_rect()
+            scoreRect2.center = (screen_width // 2, screen_height//2 + 25)
+            screen.blit(high_score, scoreRect2)
+
         textRect = text.get_rect()
         textRect.center = (screen_width // 2, screen_height//2 + 100)
         screen.blit(text, textRect)
@@ -174,5 +189,4 @@ def menu(death_count):
                 run = False
             if event.type == pygame.KEYDOWN:
                 main()
-
-menu(death_count=0)
+menu(death_count=0, highpoint=highpoint)
