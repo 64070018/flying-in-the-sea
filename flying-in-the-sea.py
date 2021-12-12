@@ -87,8 +87,10 @@ def main():
             bg_x = 0
 
         barrior_shark = screen.blit(shark, (shark_x, shark_y))
-        if speed < 1:  # ฉลามเคลื่อนที่
-            shark_x -= 1
+        if speed < 3:  # ฉลามเคลื่อนที่
+            num = [2, 3, 1]
+            speed_shark = random.choice(num)
+            shark_x -= speed_shark
         else:
             shark_x -= speed
         if shark_x <= -480*2:
@@ -96,8 +98,10 @@ def main():
             shark_x = random.choice(num)
 
         barrior_boat = screen.blit(shark, (boat_x, 0))
-        if speed < 1:  # เรือเคลื่อนที่
-            boat_x -= 1
+        if speed < 2:  # เรือเคลื่อนที่
+            num = [1, 2, 3]
+            speed_boat = random.choice(num)
+            boat_x -= speed_boat
         else:
             boat_x -= speed
         if boat_x <= -550*2:
@@ -106,7 +110,9 @@ def main():
 
         barrior_coral = screen.blit(coral, (coral_x, 280*2))
         if speed < 1:  # ปะการังเคลื่อนที่
-            coral_x -= 1
+            num = [1, 2, 3]
+            speed_coral = random.choice(num)
+            coral_x -= speed_coral
         else:
             coral_x -= speed
         if coral_x <= -550*2:
