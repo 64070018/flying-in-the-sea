@@ -4,8 +4,8 @@ from pygame import mixer
 
 pygame.init()
 pygame.display.set_caption('flying-in-the-sea game')
-icon = pygame.image.load(r'Art\icongame.png') #icon game
-pygame.display.set_icon(icon)
+# icon = pygame.image.load(r'Art\icongame.png') #icon game
+# pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 430*2
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -92,7 +92,8 @@ def main():
         else:
             shark_x -= speed
         if shark_x <= -480*2:
-            shark_x = random.randint(800, 1200)
+            num = [800, 850, 900, 950, 1200]
+            shark_x = random.choice(num)
 
         barrior_boat = screen.blit(shark, (boat_x, 0))
         if speed < 1:  # เรือเคลื่อนที่
@@ -100,7 +101,8 @@ def main():
         else:
             boat_x -= speed
         if boat_x <= -550*2:
-            boat_x = random.randint(1000, 500*3.5)
+            num = [860, 870, 900,930, 950, 1200]
+            boat_x = random.choice(num)
 
         barrior_coral = screen.blit(coral, (coral_x, 280*2))
         if speed < 1:  # ปะการังเคลื่อนที่
@@ -108,7 +110,8 @@ def main():
         else:
             coral_x -= speed
         if coral_x <= -550*2:
-            coral_x = random.randint(950, 1150)
+            num = [860, 870, 900, 920]
+            coral_x = random.choice(num)
 
         if player_y >= 310*2:  # ล็อคไม่ให้ตัววละครหลุดเฟรมบน-ล่าง
             player_y = 310*2
