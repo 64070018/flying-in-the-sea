@@ -1,24 +1,27 @@
 """PSIT PROJECT 2021"""
-import pygame, random, os
+import pygame
+import random
+import os
 from pygame import mixer
 
 pygame.init()
 pygame.display.set_caption('flying-in-the-sea game')
-icon = pygame.image.load(r'Art\icongame.png') #icon game
+icon = pygame.image.load(r'Art\icongame.png')  # icon game
 pygame.display.set_icon(icon)
-screen_height = 360*2
-screen_width = 430*2
+screen_height = 720
+screen_width = 860
 screen = pygame.display.set_mode((screen_width, screen_height))
 
 if os.path.exists('score.txt'):
     with open('score.txt', 'r') as file:
         highpoint = int(file.read())
 else:
-        highpoint = 0
+    highpoint = 0
+
 
 def main():
     """flying-in-the-sea"""
-    pygame.mixer.music.load(r'Art\music.wav') # Music
+    pygame.mixer.music.load(r'Art\music.wav')  # Music
     pygame.mixer.music.play(-1)
     global points
     points = 0
@@ -46,7 +49,7 @@ def main():
     distance = 0
     speed = 0
 
-    player_x, player_y = 100, 370*2
+    player_x, player_y = 100, 740
     death_count = 0
 
     run = True
@@ -57,18 +60,19 @@ def main():
             speed += 1
         if speed >= 10:
             speed -= random.randint(5, 10)
-        if distance%100 == 0:
+        if distance % 100 == 0:
             points += 1
 
         font = pygame.font.SysFont("Mali", 32, False, False)
         txt = font.render("SCORE:" + str(points), False, [0, 0, 0])
-        high_score = font.render("High score: " + str(highpoint), True, (0, 0, 0))
+        high_score = font.render(
+            "High score: " + str(highpoint), True, (0, 0, 0))
         scoreRect2 = high_score.get_rect()
         scoreRect2 = (700, 10)
 
         for event in pygame.event.get():
-           if event.type == pygame.QUIT:  # ออกจากเกม
-               run = False
+            if event.type == pygame.QUIT:  # ออกจากเกม
+                run = False
 
         action = pygame.key.get_pressed()  # การเคลื่อนที่
         if action[pygame.K_UP] or action[pygame.K_w]:
@@ -83,7 +87,7 @@ def main():
         """การแสดงผลวัตถุในหน้าจอ"""
         playerr = screen.blit(player, (player_x, player_y))
         bg_x = bg_x - 0.5
-        if bg_x <= -480*2:  # พื้นหลังเลื่อน
+        if bg_x <= -960:  # พื้นหลังเลื่อน
             bg_x = 0
 
         barrior_shark = screen.blit(shark, (shark_x, shark_y))
@@ -104,23 +108,23 @@ def main():
             boat_x -= speed_boat
         else:
             boat_x -= speed
-        if boat_x <= -550*2:
-            num = [860, 870, 900,930, 950, 1200]
+        if boat_x <= -1100:
+            num = [860, 870, 900, 930, 950, 1200]
             boat_x = random.choice(num)
 
-        barrior_coral = screen.blit(coral, (coral_x, 280*2))
+        barrior_coral = screen.blit(coral, (coral_x, 560))
         if speed < 1:  # ปะการังเคลื่อนที่
             num = [1, 2, 3]
             speed_coral = random.choice(num)
             coral_x -= speed_coral
         else:
             coral_x -= speed
-        if coral_x <= -550*2:
+        if coral_x <= -1100:
             num = [860, 870, 900, 920]
             coral_x = random.choice(num)
 
-        if player_y >= 310*2:  # ล็อคไม่ให้ตัววละครหลุดเฟรมบน-ล่าง
-            player_y = 310*2
+        if player_y >= 620:  # ล็อคไม่ให้ตัววละครหลุดเฟรมบน-ล่าง-หลัง
+            player_y = 620
         elif player_y <= 0:
             player_y = 0
         elif player_x <= 0:
@@ -128,31 +132,31 @@ def main():
 
         # ถ้าชนแล้วจบเกม
         if playerr.colliderect(barrior_shark):
-            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav')  # effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_boat):
-            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav')  # effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_coral):
-            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav')  # effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
 
         # การเรียนใช้ตัวแปรให้แสดงผล
-        screen.blit(bg, (bg_x-480*2, 0))
+        screen.blit(bg, (bg_x-960, 0))
         screen.blit(bg, (bg_x, 0))
-        screen.blit(bg, (bg_x+480*2, 0))
+        screen.blit(bg, (bg_x+960, 0))
         screen.blit(shark, (shark_x, shark_y))
         screen.blit(boat, (boat_x, 0))
-        screen.blit(coral, (coral_x, 280*2))
+        screen.blit(coral, (coral_x, 560))
         screen.blit(player, (player_x, player_y))
         screen.blit(txt, (10, 10))
         screen.blit(high_score, scoreRect2)
@@ -162,6 +166,7 @@ def main():
 
     return highpoint
 
+
 def menu(death_count):
     """menu"""
     global points, highpoint
@@ -170,14 +175,15 @@ def menu(death_count):
         screen.fill((122, 197, 205))
         font = pygame.font.SysFont('constantia', 40)
 
-        #เมนูเริ่มเกม
+        # เมนูเริ่มเกม
         if death_count == 0:
-            name = font.render("F l y i n g - i n - t h e - s e a", True, (0, 0, 0))
+            name = font.render(
+                "F l y i n g - i n - t h e - s e a", True, (0, 0, 0))
             text = font.render("Press any Key to Start", True, (0, 0, 0))
             nameRect = name.get_rect()
             nameRect.center = (screen_width // 2, screen_height//2 - 50)
             screen.blit(name, nameRect)
-        #เมนู restart
+        # เมนู restart
         elif death_count > 0:
             if points > highpoint:
                 highpoint = points
@@ -193,7 +199,8 @@ def menu(death_count):
             scoreRect.center = (screen_width // 2, screen_height//2 - 50)
             screen.blit(score, scoreRect)
 
-            high_score = font.render("High score: " + str(highpoint), True, (0, 0, 0))
+            high_score = font.render(
+                "High score: " + str(highpoint), True, (0, 0, 0))
             scoreRect2 = high_score.get_rect()
             scoreRect2.center = (screen_width // 2, screen_height//2 + 25)
             screen.blit(high_score, scoreRect2)
@@ -208,4 +215,5 @@ def menu(death_count):
             if event.type == pygame.KEYDOWN:
                 main()
                 return
+
 menu(death_count=0)
