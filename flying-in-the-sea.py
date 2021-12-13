@@ -4,8 +4,8 @@ from pygame import mixer
 
 pygame.init()
 pygame.display.set_caption('flying-in-the-sea game')
-# icon = pygame.image.load(r'Art\icongame.png') #icon game
-# pygame.display.set_icon(icon)
+icon = pygame.image.load(r'Art\icongame.png') #icon game
+pygame.display.set_icon(icon)
 screen_height = 360*2
 screen_width = 430*2
 screen = pygame.display.set_mode((screen_width, screen_height))
@@ -19,11 +19,11 @@ else:
 def main():
     """flying-in-the-sea"""
     pygame.mixer.music.load(r'Art\music.wav') # Music
-    pygame.mixer.music.play()
+    pygame.mixer.music.play(-1)
     global points
     points = 0
 
-    bg = pygame.image.load(r'Art\bg.jpg')  # Background
+    bg = pygame.image.load(r'Art\bg.jpeg')  # Background
     bg = pygame.transform.scale(bg, (480*2, 360*2))
 
     player = pygame.image.load(r'Art\Turtle.png')  # Player turtled
@@ -128,19 +128,19 @@ def main():
 
         # ถ้าชนแล้วจบเกม
         if playerr.colliderect(barrior_shark):
-            pygame.mixer.music.load(r'Art\explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_boat):
-            pygame.mixer.music.load(r'Art\explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
             return
         if playerr.colliderect(barrior_coral):
-            pygame.mixer.music.load(r'Art\explosion.wav') #effect
+            pygame.mixer.music.load(r'Art\Art_explosion.wav') #effect
             pygame.mixer.music.play()
             death_count += 1
             menu(death_count)
