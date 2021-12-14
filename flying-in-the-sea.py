@@ -64,7 +64,7 @@ def main():
             points += 1
 
         font = pygame.font.SysFont("Mali", 32, False, False)
-        txt = font.render("SCORE:" + str(points), False, [0, 0, 0])
+        txt = font.render("  SCORE : " + str(points), False, [0, 0, 0])
         high_score = font.render(
             "High score: " + str(highpoint), True, (0, 0, 0))
         scoreRect2 = high_score.get_rect()
@@ -194,13 +194,13 @@ def menu(death_count):
                 with open('score.txt', 'w') as file:
                     file.write(str(highpoint))
             text = font.render("Press any Key to Restart", True, (0, 0, 0))
-            score = font.render("Your score: " + str(points), True, (0, 0, 0))
+            score = font.render(" Your score:  " + str(points), True, (0, 0, 0))
             scoreRect = score.get_rect()
             scoreRect.center = (screen_width // 2, screen_height//2 - 50)
             screen.blit(score, scoreRect)
 
             high_score = font.render(
-                "High score: " + str(highpoint), True, (0, 0, 0))
+                "High score :  " + str(highpoint) + "  ", True, (0, 0, 0))
             scoreRect2 = high_score.get_rect()
             scoreRect2.center = (screen_width // 2, screen_height//2 + 25)
             screen.blit(high_score, scoreRect2)
